@@ -41,13 +41,13 @@
       <div class="profile profile--contact">
         <img
           class="profile__image"
-          src="img/avatar_1.jpg"
+          :src="`img/avatar${currentContact.avatar}.jpg`"
           alt="Profile image"
         />
         <div class="profile__text">
-          <h4 class="profile__name">Michele</h4>
+          <h4 class="profile__name">{{currentContact.name}}</h4>
           <p class="profile__last-access">
-            Ultimo accesso oggi alle 10/01/2020 16:15:22
+            Ultimo accesso oggi alle {{getLastMessageTimeStamp(currentContact)}}
           </p>
         </div>
         <a href="#" class="profile__icon">
@@ -83,67 +83,36 @@
         </div>
         <div class="chat-list-container">
           <ul class="chat-list">
-            <li class="chat-item active">
+            <li
+              v-for="contact, i in contactsList"
+              class="chat-item"
+              :class="{active: i === currentContactIndex}"
+              @click="currentContactIndex = i"
+            >
               <img
                 class="chat-item__image"
-                src="img/avatar_1.jpg"
+                :src="`img/avatar${contact.avatar}.jpg`"
                 alt="Profile image"
               />
-              <h4 class="chat-item__name">Michele</h4>
-              <p class="chat-item__message">Tutto fatto! ...</p>
-              <p class="chat-item__last-access">10/01/2020 16:15:22</p>
-            </li>
-            <li class="chat-item">
-              <img
-                class="chat-item__image"
-                src="img/avatar_1.jpg"
-                alt="Profile image"
-              />
-              <h4 class="chat-item__name">Michele</h4>
-              <p class="chat-item__message">Tutto fatto! ...</p>
-              <p class="chat-item__last-access">10/01/2020 16:15:22</p>
-            </li>
-            <li class="chat-item">
-              <img
-                class="chat-item__image"
-                src="img/avatar_1.jpg"
-                alt="Profile image"
-              />
-              <h4 class="chat-item__name">Michele</h4>
-              <p class="chat-item__message">Tutto fatto! ...</p>
-              <p class="chat-item__last-access">10/01/2020 16:15:22</p>
-            </li>
-            <li class="chat-item">
-              <img
-                class="chat-item__image"
-                src="img/avatar_1.jpg"
-                alt="Profile image"
-              />
-              <h4 class="chat-item__name">Michele</h4>
-              <p class="chat-item__message">Tutto fatto! ...</p>
-              <p class="chat-item__last-access">10/01/2020 16:15:22</p>
+              <h4 class="chat-item__name">{{contact.name}}</h4>
+              <p class="chat-item__message">
+                {{getLastMessageTruncated(contact)}}
+              </p>
+              <p class="chat-item__last-access">
+                {{getLastMessageTimeStamp(contact)}}
+              </p>
             </li>
           </ul>
         </div>
       </div>
       <div class="conversation-container">
         <div class="conversation">
-          <div class="message">
-            <div class="message__baloon message__baloon--sent">
-              <h4 class="message__text">Hai portato a spasso il cane?</h4>
-              <p class="message__time-stamp">10/01/2020 15:30:55</p>
-            </div>
-          </div>
-          <div class="message">
-            <div class="message__baloon message__baloon--sent">
-              <h4 class="message__text">Hai portato a spasso il cane?</h4>
-              <p class="message__time-stamp">10/01/2020 15:30:55</p>
-            </div>
-          </div>
-          <div class="message">
-            <div class="message__baloon message__baloon--received">
-              <h4 class="message__text">Hai portato a spasso il cane?</h4>
-              <p class="message__time-stamp">10/01/2020 15:30:55</p>
+          <div class="conversation-content">
+            <div v-for="message in currentContact.messages" class="message">
+              <div class="message__baloon" :class="getStatusClass(message)">
+                <h4 class="message__text">{{message.text}}</h4>
+                <p class="message__time-stamp">{{message.date}}</p>
+              </div>
             </div>
           </div>
         </div>
