@@ -115,8 +115,10 @@ window.addEventListener("DOMContentLoaded", function () {
     },
     methods: {
       setLastAccess(contact) {
-        let lastMessageIndex = contact.messages.length - 1;
-        contact.lastAccess = contact.messages[lastMessageIndex].date;
+        let receivedMessages = contact.messages.filter(
+          (el) => el.status === "received"
+        );
+        contact.lastAccess = receivedMessages[receivedMessages.length - 1].date;
       },
 
       filteredContactsList: function () {
