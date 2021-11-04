@@ -173,9 +173,9 @@ window.addEventListener("DOMContentLoaded", function () {
           this.randomMessages.length - 1
         );
         const messageText = this.randomMessages[randomMessageIndex];
-        if (this.getRandomBoolean()) {
-          setTimeout(() => this.saveMessage("received", messageText), 1000);
-        }
+        /* if (this.getRandomBoolean()) { */
+        setTimeout(() => this.saveMessage("received", messageText), 1000);
+        /* } */
       },
 
       getRandomNumber(min, max) {
