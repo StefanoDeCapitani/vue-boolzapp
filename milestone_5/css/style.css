@@ -1,5 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
+/*------------------------------------
+TABLE OF CONTENTS:
+1. Global styles
+2. Typography
+3. Layout
+  A: SHELL - grid
+  B: PROFILES - user & contact
+  C: SIDE-BAR
+    - Notification
+    - Search-bar
+    - Chat-list
+  D: CONVERSATION
+    - Chat
+    - Message
+    - Message drop-down
+    - Typing bar
+------------------------------------*/
+
+/*===========================
+      1. Global Styles
+===========================*/
 *,
 *::before,
 *::after {
@@ -11,6 +32,10 @@
 :root {
   font-family: "Roboto", sans-serif;
 }
+
+/*===========================
+      2. Typography
+===========================*/
 
 h4 {
   font-weight: 500;
@@ -28,6 +53,10 @@ p {
 a {
   color: #4f7384;
 }
+
+/*===========================
+      3. Layout
+===========================*/
 
 body {
   height: 100vh;
@@ -47,6 +76,8 @@ body {
   background-color: #0c9588;
   z-index: -1;
 }
+
+/* !! A: SHELL - grid !! */
 
 .shell {
   width: 1100px;
@@ -93,6 +124,8 @@ body {
   overflow: hidden;
 }
 
+/* !! B: PROFILES - user & contact !! */
+
 .profile {
   background-color: #e9eae9;
   display: flex;
@@ -121,6 +154,9 @@ body {
   color: #b1b1b2;
 }
 
+/* !! C: SIDE-BAR !! */
+
+/*Notification*/
 .notification {
   flex: 0 0 auto;
   padding: 0.5rem;
@@ -142,6 +178,7 @@ body {
   place-content: center;
 }
 
+/*Search-bar*/
 .search-bar {
   flex: 0 0 auto;
   height: 50px;
@@ -168,6 +205,7 @@ body {
   outline: none;
 }
 
+/*Chat-list*/
 .chat-list-container {
   flex: 1 1 auto;
   min-height: 0;
@@ -217,13 +255,16 @@ body {
   text-align: end;
 }
 
+/* !! D: CONVERSATION !! */
+
+/*Chat*/
 .conversation {
   background-color: #ffffff;
   flex: 1 1 auto;
   overflow: auto;
 }
 
-.conversation-content {
+.conversation-chat {
   min-height: 100%;
   width: 98%;
   background-image: url(../img/mine.jpg);
@@ -232,6 +273,8 @@ body {
   flex-direction: column;
   gap: 0.6rem;
 }
+
+/*Message*/
 
 .message {
   min-height: 55px;
@@ -267,6 +310,15 @@ body {
   background-color: #ffffff71;
 }
 
+.message__time-stamp {
+  position: absolute;
+  bottom: 0.25rem;
+  right: 0.4rem;
+  font-size: 0.8rem;
+}
+
+/*Message drop-down*/
+
 .message__drop-down .btn {
   color: #bbbcbe;
 }
@@ -286,7 +338,7 @@ body {
   cursor: pointer;
 }
 
-.message__baloon:hover .icon {
+.message__baloon:hover .message__drop-down .icon {
   opacity: 1;
 }
 
@@ -315,14 +367,9 @@ body {
   display: block;
 }
 
-.message__time-stamp {
-  position: absolute;
-  bottom: 0.25rem;
-  right: 0.4rem;
-  font-size: 0.8rem;
-}
+/*Typing bar*/
 
-.writing-bar {
+.typing-bar {
   flex: 0 0 auto;
   height: 70px;
   display: flex;
@@ -331,7 +378,7 @@ body {
   background-color: #f2eeea;
 }
 
-.writing-bar__input-text {
+.typing-bar__input-text {
   flex: 1 0 auto;
   height: 100%;
   border: none;
@@ -340,11 +387,11 @@ body {
   padding: 0.5rem 1rem;
 }
 
-.writing-bar__input-text:focus {
+.typing-bar__input-text:focus {
   outline: none;
 }
 
-.writing-bar__icon {
+.typing-bar__icon {
   padding: 1rem 1.5rem;
   font-size: 1.5rem;
   color: #6b7376;

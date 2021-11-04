@@ -114,6 +114,11 @@ window.addEventListener("DOMContentLoaded", function () {
       },
     },
     methods: {
+      setLastAccess(contact) {
+        let lastMessageIndex = contact.messages.length - 1;
+        contact.lastAccess = contact.messages[lastMessageIndex].date;
+      },
+
       filteredContactsList: function () {
         let filterInput = this.contactSearchInput.toLowerCase();
         let filteredList = [...this.contactsList];
@@ -138,9 +143,12 @@ window.addEventListener("DOMContentLoaded", function () {
         return lastMessage;
       },
 
-      setLastAccess(contact) {
-        let lastMessageIndex = contact.messages.length - 1;
-        contact.lastAccess = contact.messages[lastMessageIndex].date;
+      scrollChatToBottom(scrollBehavior, delay) {
+        const chat = this.$el.querySelector(".conversation-chat");
+        setTimeout(
+          () => chat.scrollIntoView({ behavior: scrollBehavior, block: "end" }),
+          delay
+        );
       },
 
       getStatusClass(message) {
@@ -164,7 +172,10 @@ window.addEventListener("DOMContentLoaded", function () {
           status: messageStatus,
         });
         this.setLastAccess(this.currentContact);
-        this.newMessageText = "";
+        if (messageStatus === "sent") {
+          this.newMessageText = "";
+        }
+        this.scrollChatToBottom("smooth", 50);
       },
 
       contactAutomaticallyReplies() {
