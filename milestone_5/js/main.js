@@ -112,6 +112,17 @@ window.addEventListener("DOMContentLoaded", function () {
       currentContact: function () {
         return this.contactsList[this.currentContactIndex];
       },
+
+      filteredContactsList: function () {
+        let filteredList = [...this.contactsList];
+        if (this.contactSearchInput) {
+          let filterInput = this.contactSearchInput.trim().toLowerCase();
+          filteredList = filteredList.filter((el) =>
+            el.name.toLowerCase().includes(filterInput)
+          );
+        }
+        return filteredList;
+      },
     },
     methods: {
       setLastAccess(contact) {
@@ -119,17 +130,6 @@ window.addEventListener("DOMContentLoaded", function () {
           (el) => el.status === "received"
         );
         contact.lastAccess = receivedMessages[receivedMessages.length - 1].date;
-      },
-
-      filteredContactsList: function () {
-        let filterInput = this.contactSearchInput.toLowerCase();
-        let filteredList = [...this.contactsList];
-        if (filterInput !== "") {
-          filteredList = filteredList.filter((el) =>
-            el.name.toLowerCase().includes(filterInput)
-          );
-        }
-        return filteredList;
       },
 
       getLastMessageTruncated(contact) {
@@ -186,9 +186,9 @@ window.addEventListener("DOMContentLoaded", function () {
           this.randomMessages.length - 1
         );
         const messageText = this.randomMessages[randomMessageIndex];
-        if (this.getRandomBoolean()) {
-          setTimeout(() => this.saveMessage("received", messageText), 1000);
-        }
+        /*         if (this.getRandomBoolean()) { */
+        setTimeout(() => this.saveMessage("received", messageText), 1000);
+        /*         } */
       },
 
       getRandomNumber(min, max) {

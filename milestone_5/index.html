@@ -11,6 +11,8 @@
     />
     <!-- My css -->
     <link rel="stylesheet" href="css/style.css" />
+    <!-- Day js -->
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
     <!-- Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <!-- My js -->
@@ -97,7 +99,7 @@
           <ul class="chat-list">
             <!-- CONTACTS V-FOR START -->
             <li
-              v-for="contact in filteredContactsList()"
+              v-for="contact in filteredContactsList"
               class="chat-item"
               :class="{active: contact === currentContact}"
               @click="currentContactIndex = contactsList.indexOf(contact);
