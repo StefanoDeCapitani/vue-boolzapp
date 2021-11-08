@@ -253,6 +253,7 @@ body {
 .chat-item__last-access {
   grid-area: last-access;
   text-align: end;
+  width: 140px;
 }
 
 /* !! D: CONVERSATION !! */

@@ -1,4 +1,5 @@
 Vue.config.devtools = true;
+dayjs.extend(window.dayjs_plugin_customParseFormat);
 
 const contacts = [
   {
@@ -129,6 +130,7 @@ window.addEventListener("DOMContentLoaded", function () {
         let receivedMessages = contact.messages.filter(
           (el) => el.status === "received"
         );
+        if (receivedMessages.length < 1) return;
         contact.lastAccess = receivedMessages[receivedMessages.length - 1].date;
       },
 
@@ -137,7 +139,12 @@ window.addEventListener("DOMContentLoaded", function () {
         if (!contact.messages[lastMessageIndex]) {
           return "Nessun messaggio";
         }
+
         let lastMessage = contact.messages[lastMessageIndex].text;
+        if (contact.messages[lastMessageIndex].status === "sent") {
+          lastMessage = "Tu: " + lastMessage;
+        }
+
         let maxLength = 35;
         if (lastMessage.length > maxLength) {
           lastMessage = lastMessage.substring(0, maxLength).trim() + "...";
