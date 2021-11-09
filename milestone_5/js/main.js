@@ -1,5 +1,7 @@
 Vue.config.devtools = true;
 dayjs.extend(window.dayjs_plugin_customParseFormat);
+dayjs.extend(window.dayjs_plugin_localizedFormat);
+dayjs.locale("it");
 
 const contacts = [
   {
@@ -20,6 +22,11 @@ const contacts = [
       },
       {
         date: "10/01/2020 16:15:22",
+        text: "Tutto fatto!",
+        status: "received",
+      },
+      {
+        date: "05/11/2021 16:15:22",
         text: "Tutto fatto!",
         status: "received",
       },
@@ -125,7 +132,36 @@ window.addEventListener("DOMContentLoaded", function () {
         return filteredList;
       },
     },
+
     methods: {
+      getTime(date) {
+        return dayjs(date, "DD/MM/YYYY HH:mm:ss").format("HH:mm");
+      },
+
+      getDateFormatted(date) {
+        return dayjs(date, "DD/MM/YYYY HH:mm:ss").format("LL");
+      },
+
+      isFirstMessageOfTheDay(index) {
+        if (index === 0) {
+          return true;
+        }
+
+        let currentMessageDate = dayjs(
+          this.currentContact.messages[index].date,
+          "DD/MM/YYYY HH:mm:ss"
+        );
+        let previousMessageDate = dayjs(
+          this.currentContact.messages[index - 1].date,
+          "DD/MM/YYYY HH:mm:ss"
+        );
+
+        return !(
+          currentMessageDate.format("DD/MM/YYYY") ===
+          previousMessageDate.format("DD/MM/YYYY")
+        );
+      },
+
       setLastAccess(contact) {
         let receivedMessages = contact.messages.filter(
           (el) => el.status === "received"
@@ -174,9 +210,9 @@ window.addEventListener("DOMContentLoaded", function () {
       },
 
       saveMessage(messageStatus, text = this.newMessageText) {
-        const date = new Date();
+        const date = dayjs();
         this.currentContact.messages.push({
-          date: date.toLocaleString("it-IT"),
+          date: date.format("DD/MM/YYYY HH:mm:ss").replace(",", ""),
           text: text,
           status: messageStatus,
         });
